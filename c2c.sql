@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 30 Nis 2021, 19:29:39
+-- Üretim Zamanı: 26 May 2021, 00:10:40
 -- Sunucu sürümü: 10.4.17-MariaDB
 -- PHP Sürümü: 7.3.27
 
@@ -87,16 +87,9 @@ CREATE TABLE `etkinlik` (
 --
 
 INSERT INTO `etkinlik` (`etkinlik_id`, `etkinlik_baslik`, `etkinlik_foto`, `il_id`, `ilce_id`, `etkinlik_aciklama`, `etkinlik_adres`, `kullanici_id`, `etkinlik_tarih`) VALUES
-(16, 'Sinema', 'dimg/etkinlikfoto/31539MAMBALAR (2).png', 2, 5, 'Saat öğlen 12.de Belirtilen adreste benimle Kolpaçino 3 filmini izlemek isteyenler katılabilir :) ', 'Cihangir Mahallesi ........... AVM Cinemaximum', 172, '2021-01-31'),
-(17, 'Halısaha', 'dimg/etkinlikfoto/31007top.jpg', 3, 6, '21.00-22.00 saatleri arası takımına güvenen bir kişinin katılımıyla rezervasyon yaptıracağız. Biz hazırız, ya siz?', 'Mekan Halı Saha', 175, '2021-01-29'),
-(18, 'Yazılımcılar Buluşması', 'dimg/etkinlikfoto/26353asdd.jpg', 56, 4, 'İstanbulda yaşayan tüm yazılımcı arkadaşlarımı davet ediyorum', 'İstanbul Bahçelievler Demirayak Office', 172, '2021-01-31'),
-(19, 'İngilizce kulübü', 'dimg/etkinlikfoto/21153books-1655783__340.jpg', 39, 6, 'birlikte ingilizcemizi geliştirebilir ve yeni arkadaşlar edinebiliriz.', 'çarşı', 176, '2021-05-09'),
-(20, 'Doğa yürüyüşü', 'dimg/etkinlikfoto/28983res.png', 5, 7, 'Birlikte kamp yapıp doğa yürüyüşü yapacağız katılmak isteyen herkes katılabilir', 'yayla', 176, '2021-05-30'),
-(21, 'haytalık ', 'dimg/etkinlikfoto/30453Screenshot_1.png', 16, 5, 'can sıkıntısı', 'meydan ', 176, '2021-04-25'),
-(22, 'urfa', 'dimg/etkinlikfoto/23640Screenshot_1.png', 63, 5, 'klfdkldf', 'lkddfl', 176, '2021-05-09'),
-(23, 'ssdrdf', 'dimg/etkinlikfoto/28508Screenshot_1.png', 63, 7, 'sjdkkjsdkjs', 'jkdrkjdr', 176, '2021-06-12'),
-(24, 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjj', 'dimg/etkinlikfoto/27814Screenshot_1.png', 0, 34, 'hkhjhh', 'bjhj', 176, '2021-09-25'),
-(25, 'urfa', 'dimg/etkinlikfoto/20542Screenshot_1.png', 0, 16, 'nmnmskndfkdfj', 'kjfkjfd', 176, '2022-01-28');
+(38, 'deneme', 'dimg/etkinlikfoto/22336Screenshot_1.png', 6, 806, 'jkkjdkfj', 'jjkek', 173, '2021-05-23'),
+(39, 'avcılar sahi gezisi', 'dimg/etkinlikfoto/25618index.png', 34, 94, 'jkjdf', 'kjfddf', 173, '2021-05-30'),
+(40, 'Doğa yürüyüşü', 'dimg/etkinlikfoto/23413Screenshot_1.png', 63, 922, 'mvmcv', 'kldkdf', 173, '2021-05-31');
 
 -- --------------------------------------------------------
 
@@ -108,6 +101,16 @@ CREATE TABLE `etkinlik_katilan` (
   `etkinlik_id` int(11) NOT NULL,
   `kullanici_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
+
+--
+-- Tablo döküm verisi `etkinlik_katilan`
+--
+
+INSERT INTO `etkinlik_katilan` (`etkinlik_id`, `kullanici_id`) VALUES
+(40, 171),
+(40, 169),
+(39, 175),
+(39, 172);
 
 -- --------------------------------------------------------
 
@@ -1295,6 +1298,13 @@ ALTER TABLE `etkinlik`
   ADD PRIMARY KEY (`etkinlik_id`);
 
 --
+-- Tablo için indeksler `etkinlik_katilan`
+--
+ALTER TABLE `etkinlik_katilan`
+  ADD KEY `etkinlik_id` (`etkinlik_id`),
+  ADD KEY `kullanici_id` (`kullanici_id`);
+
+--
 -- Tablo için indeksler `hakkimizda`
 --
 ALTER TABLE `hakkimizda`
@@ -1333,7 +1343,7 @@ ALTER TABLE `menu`
 -- Tablo için AUTO_INCREMENT değeri `etkinlik`
 --
 ALTER TABLE `etkinlik`
-  MODIFY `etkinlik_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `etkinlik_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `il`
@@ -1356,6 +1366,13 @@ ALTER TABLE `menu`
 --
 -- Dökümü yapılmış tablolar için kısıtlamalar
 --
+
+--
+-- Tablo kısıtlamaları `etkinlik_katilan`
+--
+ALTER TABLE `etkinlik_katilan`
+  ADD CONSTRAINT `etkinlik_katilan_ibfk_1` FOREIGN KEY (`kullanici_id`) REFERENCES `kullanici` (`kullanici_id`),
+  ADD CONSTRAINT `etkinlik_katilan_ibfk_2` FOREIGN KEY (`etkinlik_id`) REFERENCES `etkinlik` (`etkinlik_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Tablo kısıtlamaları `ilce`

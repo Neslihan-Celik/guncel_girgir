@@ -65,21 +65,20 @@ $etkinliksor->execute(array(
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <?php 
-                                    $say =0;
-                                    while($etkinlikcek = $etkinliksor -> fetch(PDO::FETCH_ASSOC))
-                                    {
-                                        $say++?>
-                                    
-                                    
-                                    
-                                        <tr>
-                                            <th scope="row"><?php echo $say ?></th>
-                                            <td><?php echo $etkinlikcek['etkinlik_baslik'] ?></td>
-                                            <td><?php echo $etkinlikcek['etkinlik_tarih'] ?></td>
-                                            <td><button class="btn btn-danger btn-xs">Etkinliği sil</button></td>
-                                        </tr>
-                                    <?php } ?>
+                                        <?php
+                                        $say = 0;
+                                        while ($etkinlikcek = $etkinliksor->fetch(PDO::FETCH_ASSOC)) {
+                                            $say++ ?>
+
+
+
+                                            <tr>
+                                                <th scope="row"><?php echo $say ?></th>
+                                                <td><?php echo $etkinlikcek['etkinlik_baslik'] ?></td>
+                                                <td><?php echo $etkinlikcek['etkinlik_tarih'] ?></td>
+                                                <td><button class="btn btn-danger btn-xs">Etkinliği sil</button></td>
+                                            </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
 
