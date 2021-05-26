@@ -283,7 +283,9 @@ if (isset($_POST['etkinlikkur'])) {
         exit;
     }
     
- @$tmp_name = $_FILES['etkinlik_foto']["tmp_name"];
+    
+
+    @$tmp_name = $_FILES['etkinlik_foto']["tmp_name"];
     @$name = $_FILES['etkinlik_foto']["name"];
 
     
@@ -294,23 +296,13 @@ if (isset($_POST['etkinlikkur'])) {
     $refimgyol = substr($uploads_dir, 6) . "/" . $benzersizsayi4 . $name;
 
     @move_uploaded_file($tmp_name, "$uploads_dir/$benzersizsayi4$name");
-    $ref=$_POST['ilce'];
-   
-    
-    $ilcesor2= $db->prepare("SELECT * FROM ilce WHERE ilce_ad=:ilce_ad");
-    $ilcesor2->execute([
-        'ilce_ad'=>$ref
-    ]);
-        $row=$ilcesor2->fetch(PDO::FETCH_ASSOC);
-       
-        
+
 
     $duzenle = $db->prepare("INSERT INTO etkinlik SET
         etkinlik_baslik=:etkinlik_baslik,
         etkinlik_foto=:etkinlik_foto,
         etkinlik_aciklama=:etkinlik_aciklama,
-        il_id=:il_id,
-        ilce_ad=:ilce_ad,
+        ilce_id=:ilce_id,
         etkinlik_adres=:etkinlik_adres,
         etkinlik_tarih=:etkinlik_tarih,
         kullanici_id=:kullanici_id
@@ -319,14 +311,11 @@ if (isset($_POST['etkinlikkur'])) {
         'etkinlik_foto' => $refimgyol,
         'etkinlik_baslik' => htmlspecialchars($_POST['etkinlik_baslik']),
         'etkinlik_aciklama' => htmlspecialchars($_POST['etkinlik_aciklama']),
-        'il_id'=>htmlspecialchars($_POST['ilce_id']),
-        'ilce_ad' => htmlspecialchars($row['ilce_id']),
+        'ilce_id' => htmlspecialchars($_POST['ilce_id']),
         'etkinlik_adres' => htmlspecialchars($_POST['etkinlik_adres']),
         'etkinlik_tarih' => htmlspecialchars($_POST['etkinlik_tarih']),
         'kullanici_id' => htmlspecialchars($_POST['kullanici_id'])
     ));
-
-
 
 
 
@@ -363,7 +352,6 @@ if (isset($_POST['kullanicibilgiguncelle'])) {
 }
 
 if (isset($_POST['etkinlikgoruntule'])) {
-
 
 
 

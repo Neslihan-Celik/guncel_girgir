@@ -1,4 +1,4 @@
-﻿﻿<?php
+﻿<?php
 require_once 'header.php';
 
 //islemkontrol();
@@ -41,16 +41,16 @@ $etkinliksor->execute(array(
                 if (@$_GET['durum'] == "hata") { ?>
 
                     <div class="alert alert-danger">
-                        <strong>Hata!</strong> Etkinlik Kaldırılamadı.
+                        <strong>Hata!</strong>Güncelleme başarısız.
                     </div>
                 <?php } elseif (@$_GET['durum'] == "ok") { ?>
 
                     <div class="alert alert-success">
-                        <strong>Bilgi! </strong> Etkinlik Kaldırıldı.
+                        <strong>Bilgi!</strong>Güncelleme başarılı.
                     </div>
                 <?php }
                 ?>
-                <form action="nedmin/netting/kullanici.php" method="POST" name="etkinlik_sil" class="form-horizontal" id="personal-info-form">
+                <form action="nedmin/netting/kullanici.php" method="POST" class="form-horizontal" id="personal-info-form">
                     <div class="settings-details tab-content">
                         <div class="tab-pane fade active in" id="Personal">
                             <h2 class="title-section">Etkinliklerim</h2>
@@ -70,16 +70,13 @@ $etkinliksor->execute(array(
                                         while ($etkinlikcek = $etkinliksor->fetch(PDO::FETCH_ASSOC)) {
                                             $say++ ?>
 
-                                                
+
 
                                             <tr>
                                                 <th scope="row"><?php echo $say ?></th>
                                                 <td><?php echo $etkinlikcek['etkinlik_baslik'] ?></td>
                                                 <td><?php echo $etkinlikcek['etkinlik_tarih'] ?></td>
-                                                <td><input type="text" value="<?php echo $etkinlikcek['etkinlik_id'] ?>">
-                                                        
-                                                        <button class="btn btn-danger btn-xs" name="etkinlik_sil">Kaldır</button>
-                                                    </td>
+                                                <td><button class="btn btn-danger btn-xs">Etkinliği sil</button></td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>
