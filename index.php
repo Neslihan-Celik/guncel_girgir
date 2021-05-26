@@ -4,7 +4,6 @@ if (isset($_SESSION['userkullanici_mail'])) {
 
     $etkinliksor = $db->prepare("SELECT * FROM etkinlik  order by  etkinlik_tarih DESC");
     $etkinliksor->execute();
-
 ?>
     <div class="inner-banner-area">
         <div class="container">
@@ -46,48 +45,23 @@ if (isset($_SESSION['userkullanici_mail'])) {
                                                 </div>
                                                 <div class="item-description">
                                                     <p><?php echo $etkinlikler['etkinlik_aciklama'] ?></p>
+                                                    <div class="item-description">
+                                                    <p>Adres: <?php echo $etkinlikler['etkinlik_adres'] ?></p>
                                                 </div>
+                                                </div>
+                                                
                                                 <div class="item-sale-info">
-                                                    <div class="price">
-                                                        <?php
-                                                        $id = $etkinlikler['ilce_id'];
-                                                        $bilgi = $db->prepare("SELECT il.il_id,il.il_ad,ilce.ilce_ad,ilce.ilce_id FROM ilce
-																		 JOIN il
-																		on il.il_id=ilce.il_id
-																		WHERE ilce.ilce_id =$id
-																		");
-                                                        $bilgi->execute();
-                                                        $sehir = $bilgi->fetch(PDO::FETCH_ASSOC);
-                                                        echo '<h5><b>' . $sehir['il_ad'] . '/' . $sehir['ilce_ad'] . '</b></h5>';
-                                                        ?>
-                                                    </div>
-                                                    <!-- <div class="sale-qty" >Katılımcı Sayısı</div>-->
-                                                    <div class="sale-qty" name="katilimci" id="katilimci">
-                                                        <span><?php
-                                                                $id = $etkinlikler['etkinlik_id'];
-                                                                $bilgi = $db->prepare("SELECT  count(*) as toplam FROM etkinlik_katilan  where etkinlik_id=$id");
-                                                                $bilgi->execute();
-                                                                $kisiSayisi = $bilgi->fetch(PDO::FETCH_ASSOC);
-                                                                echo '<h7>' . $kisiSayisi['toplam']  . '</h7><br>';
-                                                                ?>
-                                                        </span>
-
-                                                    </div>
+                                                    <div class="price">Şehir</div>
+                                                    <div class="sale-qty">Katılımcı(11)</div>
                                                 </div>
                                             </div>
                                             <div class="item-profile-list">
                                                 <div class="profile-title">
-                                                    <div class="img-wrapper"><img src="img\profile\2.jpg" alt="profile" class="img-responsive img-circle"></div>
-                                                    <span><?php
-                                                            $id = $etkinlikler['kullanici_id'];
-                                                            $bilgi = $db->prepare("SELECT * FROM kullanici  where kullanici_id=$id");
-                                                            $bilgi->execute();
-                                                            $kisi = $bilgi->fetch(PDO::FETCH_ASSOC);
-                                                            echo '<h7>' . $kisi['kullanici_ad'] . ' ' . $kisi['kullanici_soyad'] . '</h7><br>';
-                                                            ?>
-                                                    </span>
+                                                    <div class="img-wrapper"><img src="img\profile\2.jpg" alt="profile" class="img-responsive img-circle"><?php  $yayinlayan=$etkinlikler['kullanici_id']; ?></div>
+                                                    <span><?php echo $etkinlikler['kullanici_id'] ?></span>
+                                                    
                                                 </div>
-                                                <a href="etkinlikIncele.php"> <button name="btnIncele" class="btn btn-primary btn-xs" onclick="katil();"> Etkinliği incele</button></a>
+                                                <button class="btn btn-success btn-xs">Etkinliğe Katıl</button>
                                             </div>
                                         </div>
                                     </div>
@@ -103,46 +77,3 @@ if (isset($_SESSION['userkullanici_mail'])) {
     <?php } else {
     header("Location:login");
 } ?>
-    <!--lazım olabilir burada dursun
-    <script>
-        function katil() {
-           
-            var deger = Number(document.getElementById("katilimci").innerHTML);
-            deger += 1;
-            document.getElementById("katilimci").innerHTML = deger.toString();
-        }
-    </script>
-    
-    <script>
-  $(function(){
-
-			
-
-$("#btnIncele").click(function(){
-
-    $.post("etkinlikIncele.php",{"Etkinlik_id":"cArleone"},function(post_veri){
-
-        $(".veri").text(post_veri);
-
-    })
-
-})
-  </script>-->
-    <script>
-        function katil() {
-            var bilgi = 'Merhaba';
-            var diger = 'ben etkinlik bilgileri getirdim ';
-            $.ajax({
-                type: "POST",
-                url: 'etkinlikInceleme.php',
-                data: {
-                    bilgi,
-                    diger
-                },
-                success: function(data) {
-                    //gelen sonuc
-                    alert(data);
-                },
-            });
-        }
-    </script>
