@@ -45,7 +45,7 @@ if (isset($_SESSION['userkullanici_mail'])) {
                                                     <span><?php echo $etkinlikler['etkinlik_tarih'] ?></span>
                                                 </div>
                                                 <div class="item-description">
-                                                    <p><?php echo $etkinlikler['etkinlik_aciklama'] ?></p>
+                                                 
                                                 </div>
                                                 <div class="item-sale-info">
                                                     <div class="price">
