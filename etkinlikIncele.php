@@ -2,123 +2,150 @@
 
 
 
-if (isset($_SESSION['userkullanici_mail'])) {
-    /*  if ($post)
-        $degisken = $_POST['bilgi'];
-    $degisken2 = $_POST['diger'];
-    echo $degisken." ".$degisken2;
-*/
 
-    $etkinliksor = $db->prepare("SELECT * FROM etkinlik  order by  etkinlik_tarih DESC");
+if (isset($_SESSION['userkullanici_mail'])) {
+    if (isset($_POST['gonder'])) {
+        $etkinlik_id = $_POST["etkinlik_id"];
+
+
+        $veri = $etkinlik_id;
+    }
+    $etkinliksor = $db->prepare("SELECT * FROM etkinlik  where etkinlik_id=$veri");
     $etkinliksor->execute();
 
 
-?>
-    <div class="inner-banner-area mt-3">
-        <div class="container">
-            <div class="inner-banner-wrapper">
-                <h1>GırGır'a Hoşgeldiniz!</h1>
-                <p></p>
-                <div class="banner-search-area input-group">
-                    <input class="form-control" placeholder="anahtar kelimelerinizi arayın . . ." type="text">
-                    <span class="input-group-addon">
-                        <button type="submit">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                    </span>
-                </div>
-                <p>Doğru tercih edilmiş bir etkinlik kur, arkadaşlar edin ve GırGır'la eğlenceye hemen başla!
-                </p>
-            </div>
-        </div>
-    </div>
 
-    <div class="category-product-list bg-secondary section-space-bottom mt-3">
+?>
+
+
+
+    <div class="category-product-list bg-secondary section-space-bottom">
         <div class="container">
             <div class="inner-page-main-body"><br>
                 <div class="page-controls">
 
                     <div class="tab-content">
 
-
-                        <div class="product-list-view-style2 mt-3">
-
-                            <div class="single-item-list">
-                                <div class="item-img">
-                                    <img src="img\logo.png" alt="product" width="181" height="147" class="img-responsive"><?php echo "profil yada etkinlik foto"; ?>
-                                </div>
-                                <div class="item-content">
-                                    <div class="item-info">
-                                        <div class="item-title ">
-                                            <div class="row ">
-                                                <h3><a href="#"><?php echo "etkinlik başlık"; ?></a></h3>
-
-                                                <span><?php echo "etkinlik tarih"; ?></span>
-                                            </div>
-
-                                            <div class="item-description">
-                                                <p><?php echo 'etkinlik_aciklama'; ?></p>
-                                                <p><b>Etkinlik açıklama</b><br>
-                                                    Lorem Ipsum Nedir?
-                                                    Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir. Lorem Ipsum,
-                                                    adı bilinmeyen bir matbaacının bir hurufat numune kitabı oluşturmak üzere bir yazı
-                                                    galerisini alarak karıştırdığı 1500'lerden beri endüstri standardı sahte metinler
-                                                    olarak kullanılmıştır. Beşyüz yıl boyunca varlığını sürdürmekle kalmamış, aynı
-                                                    zamanda pek değişmeden elektronik dizgiye de sıçramıştır. 1960'larda Lorem
-                                                    Ipsum pasajları da içeren Letraset yapraklarının yayınlanması ile ve yakın
-                                                    zamanda Aldus PageMaker gibi Lorem Ipsum sürümleri içeren masaüstü yayıncılık
-                                                    yazılımları ile popüler olmuştur.</p>
-                                            </div>
+                        <div role="tabpanel" class="tab-pane fade in active clear products-container" id="list-view">
+                            <div class="product-list-view-style2">
+                                <?php while ($etkinlikler = $etkinliksor->fetch(PDO::FETCH_ASSOC)) { ?>
+                                    <div class="single-item-list">
+                                        <div class="item-img">
+                                            <img src="<?php echo $etkinlikler['etkinlik_foto'] ?>" width="181" height="147" alt="product" class="img-responsive">
                                         </div>
-                                        <div class="item-sale-info">
-                                            <div class="price mt-3">
-                                                <?php
+                                        <div class="item-content">
+                                            <div class="item-info">
+                                                <div class="item-title">
+                                                    <h3><a href="#"><?php echo $etkinlikler['etkinlik_baslik'] ?></a></h3>
+                                                    <span><?php echo $etkinlikler['etkinlik_tarih'] ?></span>
+                                                </div>
+                                                <div class="item-description">
 
-                                                echo '<h5><b>Etkinlik  şehir il ilçe</b></h5>';
-                                                ?>
-                                            </div>
-                                            <!-- <div class="sale-qty" >Katılımcı Sayısı</div>-->
-                                            <div class="sale-qty " name="katilimci" id="katilimci">
-                                                <span><?php
-
-                                                        echo '<h7> katılımcı sayısı</h7><br>';
+                                                </div>
+                                                <div class="item-sale-info">
+                                                    <div class="price">
+                                                        <?php
+                                                        $id = $etkinlikler['ilce_id'];
+                                                        $bilgi = $db->prepare("SELECT il.il_id,il.il_ad,ilce.ilce_ad,ilce.ilce_id FROM ilce
+																		 JOIN il
+																		on il.il_id=ilce.il_id
+																		WHERE ilce.ilce_id =$id
+																		");
+                                                        $bilgi->execute();
+                                                        $sehir = $bilgi->fetch(PDO::FETCH_ASSOC);
+                                                        echo '<h5><b>' . $sehir['il_ad'] . '/' . $sehir['ilce_ad'] . '</b></h5>';
                                                         ?>
+                                                    </div>
+                                                    <!-- <div class="sale-qty" >Katılımcı Sayısı</div>-->
+                                                    <div class="sale-qty" name="katilimci" id="katilimci">
+                                                        <span>
+
+
+                                                            <?php echo "Katılımcı  sayısı : ";
+                                                            $id = $etkinlikler['etkinlik_id'];
+                                                            $bilgi = $db->prepare("SELECT  count(*) as toplam FROM etkinlik_katilan  where etkinlik_id=$id");
+                                                            $bilgi->execute();
+                                                            $kisiSayisi = $bilgi->fetch(PDO::FETCH_ASSOC);
+                                                            echo '<h7>' . $kisiSayisi['toplam']  . '</h7><br>';
+                                                            ?>
+                                                        </span>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item-profile-list">
+                                                <div class="profile-title">
+                                                    <div class="img-wrapper"><img src="img\profile\2.jpg" alt="profile" class="img-responsive img-circle"></div>
+                                                    <span>
+
+                                                        <?php
+                                                        $id = $etkinlikler['kullanici_id'];
+                                                        $bilgi = $db->prepare("SELECT * FROM kullanici  where kullanici_id=$id");
+                                                        $bilgi->execute();
+                                                        $kisi = $bilgi->fetch(PDO::FETCH_ASSOC);
+                                                        echo '<h7>Etkinlik düzenleyici : ' . $kisi['kullanici_ad'] . ' ' . $kisi['kullanici_soyad'] . '</h7><br>';
+
+                                                        ?>
+
+
+                                                        <p><?php echo "Etkinlik açıklaması : " . $etkinlikler['etkinlik_aciklama'] ?></p>
+
+                                                        <p>Adres : <?php echo $etkinlikler['etkinlik_adres'] ?></p>
+                                                </div>
                                                 </span>
 
                                             </div>
+
+                                            <br><br>
+                                            <div>
+                                                <form action="nedmin\netting\kullanici.php" method="post">
+                                                    <input type="hidden" id="etkinlik_id" value="<?php echo $etkinlikler['etkinlik_id']; ?> " name="etkinlik_id">
+                                                    <input type="hidden" id="kullanici_id" value="<?php echo $kullanicicek['kullanici_id']; ?> " name="kullanici_id">
+                                                    <a href="#"> <button id="gonder" type="submit" name="gonder" class="btn btn-success btn-lg btn-block" onclick="katil();"> Katıl </button></a><br>
+                                                </form>
+                                                <a href="index.php"> <button name="geri" class="btn btn-primary btn-lg btn-block"> İptal</button></a><br>
+                                            </div>
+                                            <div class="uyari"></div>
+
                                         </div>
                                     </div>
-                                    <div class="item-profile-list">
-                                        <div class="profile-title">
-                                           
-                                                <div class="img-wrapper "><img src="img\profile\nesprofil.jpg" alt="profile" class="img-responsive img-circle"></div>
-                                                <span><?php
-
-                                                        echo '<h7> etkinlik düzenleyen adı </h7><br>';
-                                                        ?>
-                                                </span>
-                                         
-                                        </div>
-
-
-                                    </div>
-                                    <br><br>
-                                    <div>
-                                        <a href="#"> <button name="katil" class="btn btn-success btn-lg btn-block" onclick="katil();"> Katıl</button></a><br>
-                                        <a href="#"> <button name="geri" class="btn btn-primary btn-lg btn-block" onclick="katil();"> İptal</button></a>
-                                    </div>
-                                </div>
                             </div>
-
-
+                        <?php
+                                } ?>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <?php require_once 'footer.php' ?>
-    <?php
+    </div>
+    <?php require_once 'footer.php' ?>
+<?php
+
 
 } else {
     header("Location:login");
 } ?>
+
+<script>
+    function katil() {
+        var etkinlik = $("input[name=etkinlik_id]").val();
+        var etkinlik_id = Number(etkinlik);
+        var kullanici = $("input[name=kullanici_id]").val();
+        var kullanici_id = Number(kullanici);
+
+        $.ajax({
+            type: "POST",
+            url: "nedmin\netting\kullanici.php",
+            data: {
+                post_etkinlik_ik: etkinlik_id,
+                post_kullanici_id = kullanici_id
+
+            },
+            success: function(sonuc) {
+                var newHTML = "<div style='color: green;'> *Etkinlik katılımı başarılı ! </div>";
+                document.getElementById("uyari").innerHTML = newHTML;
+
+            }
+        })
+    }
+</script>

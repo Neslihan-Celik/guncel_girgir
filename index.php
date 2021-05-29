@@ -11,6 +11,7 @@ if (isset($_SESSION['userkullanici_mail'])) {
             <div class="inner-banner-wrapper">
                 <h1>GırGır'a Hoşgeldiniz!</h1>
                 <p></p>
+                
                 <div class="banner-search-area input-group">
                     <input class="form-control" placeholder="anahtar kelimelerinizi arayın . . ." type="text">
                     <span class="input-group-addon">
@@ -45,7 +46,7 @@ if (isset($_SESSION['userkullanici_mail'])) {
                                                     <span><?php echo $etkinlikler['etkinlik_tarih'] ?></span>
                                                 </div>
                                                 <div class="item-description">
-                                                 
+
                                                 </div>
                                                 <div class="item-sale-info">
                                                     <div class="price">
@@ -63,13 +64,16 @@ if (isset($_SESSION['userkullanici_mail'])) {
                                                     </div>
                                                     <!-- <div class="sale-qty" >Katılımcı Sayısı</div>-->
                                                     <div class="sale-qty" name="katilimci" id="katilimci">
-                                                        <span><?php
-                                                                $id = $etkinlikler['etkinlik_id'];
-                                                                $bilgi = $db->prepare("SELECT  count(*) as toplam FROM etkinlik_katilan  where etkinlik_id=$id");
-                                                                $bilgi->execute();
-                                                                $kisiSayisi = $bilgi->fetch(PDO::FETCH_ASSOC);
-                                                                echo '<h7>' . $kisiSayisi['toplam']  . '</h7><br>';
-                                                                ?>
+                                                        <span>
+
+
+                                                            <?php
+                                                            $id = $etkinlikler['etkinlik_id'];
+                                                            $bilgi = $db->prepare("SELECT  count(*) as toplam FROM etkinlik_katilan  where etkinlik_id=$id");
+                                                            $bilgi->execute();
+                                                            $kisiSayisi = $bilgi->fetch(PDO::FETCH_ASSOC);
+                                                            echo '<h7>' . $kisiSayisi['toplam']  . '</h7><br>';
+                                                            ?>
                                                         </span>
 
                                                     </div>
@@ -92,7 +96,11 @@ if (isset($_SESSION['userkullanici_mail'])) {
 
                                                     </span>
                                                 </div>
-                                                <a href="etkinlikIncele.php"> <button name="btnIncele" class="btn btn-primary btn-xs" onclick="incele();"> Etkinliği incele</button></a>
+                                                <form action="etkinlikIncele.php" method="post">
+                                                    <input type="hidden" id="etkinlik_id" value="<?php echo $etkinlikler['etkinlik_id']; ?> " name="etkinlik_id">
+                                                    <button class="btn btn-primary btn-lg btn-block" type="submit" name="gonder" id="gonder " onclick="incele();"> Etkinliği incele</button>
+                                                </form>
+                                                <div id="uyari"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -108,57 +116,25 @@ if (isset($_SESSION['userkullanici_mail'])) {
     <?php } else {
     header("Location:login");
 } ?>
-    <!--lazım olabilir burada dursun
-    <script>
-        function katil() {
-           
-            var deger = Number(document.getElementById("katilimci").innerHTML);
-            deger += 1;
-            document.getElementById("katilimci").innerHTML = deger.toString();
-        }
-    </script>
-    
-    <script>
-  $(function(){
 
-			
 
-$("#btnIncele").click(function(){
-
-    $.post("etkinlikIncele.php",{"Etkinlik_id":"cArleone"},function(post_veri){
-
-        $(".veri").text(post_veri);
-
-    })
-
-})
-  </script>
-
-  <script type="text/javascript">
-  function getValue(Text) {
-    $ref=Text;  										
-	$("#ilce").val($ref);    												
-    }
-</script>
--->
 
     <script>
         function incele() {
-            var bilgi = 'Merhaba';
-            var diger = 'ben etkinlik bilgileri getirdim ';
-            var etkinlik_id = document.getElementById("kisi").innerHTML;
-            alert(etkinlik_id);
+            var etkinlik = $("input[name=etkinlik_id]").val();
+           var etkinlik_id= Number(etkinlik);
             $.ajax({
                 type: "POST",
-                url: 'etkinlikInceleme.php',
+                url: "etkinlikIncele.php",
                 data: {
-                    bilgi,
-                    diger
+                    post_etkinlik_ik: etkinlik_id,
+
                 },
-                success: function(data) {
-                    //gelen sonuc
-                    alert(data);
-                },
-            });
+                success: function(sonuc) {
+                    var newHTML = "<div style='color: green;'> *Üyeliğiniz kaydedildi </div>";
+                    document.getElementById("uyari").innerHTML = newHTML;
+
+                }
+            })
         }
     </script>

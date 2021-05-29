@@ -1,7 +1,13 @@
+
+
 <?php
 
 include 'baglan.php';
 include '../production/fonksiyon.php';
+
+
+
+
 
 // KULLANICI KAYIT İŞLEMLERİ
 if (isset($_POST['kullanicikaydet'])) {
@@ -253,9 +259,28 @@ if (isset($_POST['kullanicifotoekle'])) {
     }
 }
 */
+//etkinlik katıl için bilgi post etme -->
+
+if (isset($_POST['gonder'])) {
+    $etkinlik_id = $_POST["etkinlik_id"];
+    $kullanici_id = $_POST["kullanici_id"];
+
+   
+    $sor = $db->prepare("INSERT INTO   etkinlik_katilan ( etkinlik_id, kullanici_id)values ($etkinlik_id,$kullanici_id)");
+    $sor->execute();
+
+    if ($insert) {
+        Header("Location:../../index.php?etkinlik=ok"); 
+    } else {
+        Header("Location:../../index.php?etkinlik=hata");
+    }
+  
+
+}
+
+
+
 // ETKİNLİK KUR 
-
-
 // BURASI
 if (isset($_POST['etkinlikkur'])) {
 
