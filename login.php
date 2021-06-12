@@ -1,4 +1,4 @@
-﻿<?php require_once 'header.php'; ?>
+﻿<?php require_once 'header.php';?>
 
 
 <!-- Header Area End Here -->
@@ -55,7 +55,7 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="pLace-order">
                             <button class="update-btn disabled" name="kullanicigiris" type="submit">Giriş</button>
-
+                            
                         </div>
                     </div>
                 </div>

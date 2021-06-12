@@ -975,7 +975,7 @@ ul {
   right: 0;
 }
 #scrollUp {
-  background-color: rgba(231, 76, 60, 0.8);
+  background-color: #008000;
   bottom: 5px;
   color: #ffffff;
   display: block;
@@ -1615,7 +1615,7 @@ nav#desktop-nav > ul {
   text-align: right;
 }
 nav#desktop-nav > ul > .active > a {
-  color: #e74c3c !important;
+  color: #008000 !important;
 }
 nav#desktop-nav > ul li {
   display: inline-block;
@@ -1648,7 +1648,7 @@ nav#desktop-nav > ul li a {
   }
 }
 nav#desktop-nav > ul li a:hover {
-  color: #e74c3c;
+  color: #008000;
 }
 nav#desktop-nav > ul li > ul {
   border-top: 1px solid #e74c3c;
@@ -3016,6 +3016,7 @@ nav#desktop-nav li.has-child-menu:hover ul.thired-level {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  height: 570px;
 }
 .inner-banner-wrapper {
   text-align: center;
@@ -3063,6 +3064,7 @@ nav#desktop-nav li.has-child-menu:hover ul.thired-level {
   width: 70%;
   margin: 0 auto 40px;
   border-radius: 5px;
+  margin-top: 80px;
 }
 @media (min-width: 480px) and (max-width: 767px) {
   .banner-search-area {

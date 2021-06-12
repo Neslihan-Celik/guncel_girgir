@@ -23,6 +23,19 @@ if (isset($_SESSION['userkullanici_mail'])) {
         $_SESSION['userkullanici_id'] = $kullanicicek['kullanici_id'];
     }
 }
+if (isset($_SESSION['userkullanici_id'])) {
+    $kullanicisor = $db->prepare("SELECT * FROM kullanici where kullanici_id=:id");
+    $kullanicisor->execute(array(
+        'id' => $_SESSION['userkullanici_id']
+    ));
+    $say = $kullanicisor->rowCount();
+    $kullanicicek = $kullanicisor->fetch(PDO::FETCH_ASSOC);
+
+    //Kullanıcı ID SESSİON ataması !!! 
+    if (!isset($_SESSION['userkullanici_id'])) {
+        $_SESSION['userkullanici_id'] = $kullanicicek['kullanici_id'];
+    }
+}
 
 ?>
 
@@ -116,9 +129,7 @@ if (isset($_SESSION['userkullanici_mail'])) {
                             <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
 
                                 <ul class="profile-notification">
-                                    <!--<li>
-                                        <div class="notify-contact"><span>Need help?</span> Talk to an expert: +61 3 8376 6284</div>
-                                    </li> -->
+                                   
 
                                     <?php
                                     if (isset($_SESSION['userkullanici_mail'])) { ?>
@@ -140,6 +151,7 @@ if (isset($_SESSION['userkullanici_mail'])) {
                                                 <ul>
 
                                                     <li><a href="etkinlikkur">Etkinlik kur</a></li>
+                                                    <li><a href="etkinlik-bilgileri#Etkinliklerim">Etkinliklerim</a></li>
                                                     <li><a href="hesabim#Hesabim">Ayarlar</a></li>
                                                     <li><a id="logout-button" href="logout">Çıkış Yap</a></li>
 
@@ -164,9 +176,12 @@ if (isset($_SESSION['userkullanici_mail'])) {
                             <nav id="desktop-nav">
                                 <ul>
                                     <li><a href="index">Anasayfa</a></li>
-                                    <li> <a href="yapim.html" target="_blank">Şehir Seç</a></li>
+                                    <li> <a href="sehir" >Şehir Seç</a></li>
                                     <li><a href="etkinlikkur">Etkinlik Kur</a></li>
+                                    <li><a href="menuetkinlik">Etkinliklerim</a></li>
                                     <li><a href="indexgelistirici.php">Hakkımızda</a></li>
+                                    <li><a href="yapimcilariletisim.php">İletişim</a></li>
+
                                 </ul>
 
                             </nav>
@@ -181,62 +196,18 @@ if (isset($_SESSION['userkullanici_mail'])) {
                         <div class="col-md-12">
                             <div class="mobile-menu">
                                 <nav id="dropdown">
-                                    <ul>
-                                        <li class="active"><a href="#">Home</a>
-                                            <ul>
-                                                <li><a href="index.htm">Home 1</a></li>
-                                                <li><a href="index2.htm">Home 2</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="about.htm">About</a></li>
-                                        <li><a href="#">Pages</a>
-                                            <ul class="mega-menu-area">
-                                                <li>
-                                                    <a href="index.htm">Home 1</a>
-                                                    <a href="index2.htm">Home 2</a>
-                                                    <a href="about.htm">About</a>
-                                                    <a href="product-page-grid.htm">Product Grid</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product-page-list.htm">Product List</a>
-                                                    <a href="product-category-grid.htm">Category Grid</a>
-                                                    <a href="product-category-list.htm">Category List</a>
-                                                    <a href="single-product.htm">Product Details</a>
-                                                </li>
-                                                <li>
-                                                    <a href="profile.htm">Profile</a>
-                                                    <a href="favourites-grid.htm">Favourites Grid</a>
-                                                    <a href="favourites-list.htm">Favourites List</a>
-                                                    <a href="settings.htm">Settings</a>
-                                                </li>
-                                                <li>
-                                                    <a href="upload-products.htm">Upload Products</a>
-                                                    <a href="sales-statement.htm">Sales Statement</a>
-                                                    <a href="withdrawals.htm">Withdrawals</a>
-                                                    <a href="404.htm">404</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="product-page-grid.htm">WordPress</a></li>
-                                        <li><a href="product-category-grid.htm">Joomla</a></li>
-                                        <li><a href="product-category-list.htm">Plugins</a></li>
-                                        <li><a href="product-page-list.htm">Components</a></li>
-                                        <li><a href="product-category-grid.htm">PSD</a></li>
-                                        <li><a href="#">Blog</a>
-                                            <ul>
-                                                <li><a href="blog.htm">Blog</a></li>
-                                                <li><a href="single-blog.htm">Blog Details</a></li>
-                                                <li class="has-child-menu"><a href="#">Second Level</a>
-                                                    <ul class="thired-level">
-                                                        <li><a href="index.htm">Thired Level 1</a></li>
-                                                        <li><a href="index.htm">Thired Level 2</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="contact.htm">Contact</a></li>
-                                        <li><a href="help.htm">Help</a></li>
-                                    </ul>
+                                <ul>
+                                    <li><a href="index">Anasayfa</a></li>
+                                    <li> <a href="sehir" >Şehir Seç</a></li>
+                                    <li><a href="etkinlikkur">Etkinlik Kur</a></li>
+                                    <li><a href="menuetkinlik">Etkinliklerim</a></li>
+                                    <li><a href="indexgelistirici.php">Hakkımızda</a></li>
+                                    <li><a href="yapimcilariletisim.php">İletişim</a></li>
+                                    <li><a href="hesabim.php">Ayarlar</a></li>
+
+
+                                    
+                                </ul>
                                 </nav>
                             </div>
                         </div>
