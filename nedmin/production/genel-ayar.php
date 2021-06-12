@@ -1,5 +1,5 @@
 <?php 
-
+error_reporting(0);
 include 'header.php'; 
 
 
@@ -38,9 +38,9 @@ include 'header.php';
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                 <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Settings 1</a>
+                  <li><a href="#">Ayarlar 1</a>
                   </li>
-                  <li><a href="#">Settings 2</a>
+                  <li><a href="#">Ayarlar 2</a>
                   </li>
                 </ul>
               </li>

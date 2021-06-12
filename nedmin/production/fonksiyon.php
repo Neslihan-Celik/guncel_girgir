@@ -5,9 +5,9 @@ session_start();
 
 function islemkontrol () {
 
-    if (!isset($_SESSION['kullanici_mail'])) {
+    if (empty($_SESSION['kullanici_mail'])) {
         
-        Header("yapim.html");
+        Header("Location:../../?durum=izinsizerisim1");
         exit;
     }
 }

@@ -62,10 +62,10 @@ $kullanicisor->execute();
             <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
               <thead>
                 <tr>
-                  <th>Kayıt Tarih</th>
+                  
                   <th>Ad Soyad</th>
                   <th>Mail Adresi</th>
-                  <th>Telefon</th>
+                 
                   <th></th>
                   <th></th>
                 </tr>
@@ -79,10 +79,10 @@ $kullanicisor->execute();
 
 
                 <tr>
-                  <td><?php echo $kullanicicek['kullanici_zaman'] ?></td>
-                  <td><?php echo $kullanicicek['kullanici_adsoyad'] ?></td>
-                  <td><?php echo $kullanicicek['kullanici_mail'] ?></td>
-                  <td><?php echo $kullanicicek['kullanici_gsm'] ?></td>
+                <td><?php echo $kullanicicek['kullanici_ad']." ".$kullanicicek['kullanici_soyad'] ?></td>
+                <td><?php echo $kullanicicek['kullanici_mail'] ?></td>
+
+
                   <td><center><a href="kullanici-duzenle.php?kullanici_id=<?php echo $kullanicicek['kullanici_id']; ?>"><button class="btn btn-primary btn-xs">Düzenle</button></a></center></td>
                   <td><center><a href="../netting/islem.php?kullanici_id=<?php echo $kullanicicek['kullanici_id']; ?>&kullanicisil=ok"><button class="btn btn-danger btn-xs">Sil</button></a></center></td>
                 </tr>

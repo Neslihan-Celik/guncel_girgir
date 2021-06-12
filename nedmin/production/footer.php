@@ -1,7 +1,7 @@
   <!-- footer content -->
         <footer>
           <div class="pull-right">
-           
+             <a href="#">GırGır Activity Tarafından Tasarlanmıştır.</a>
           </div>
           <div class="clearfix"></div>
         </footer>

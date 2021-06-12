@@ -1,6 +1,7 @@
 <?php
+error_reporting(0);
 ob_start();
-session_start();
+
 include '../netting/baglan.php';
 include 'fonksiyon.php';
 
@@ -46,7 +47,7 @@ if (!isset($_SESSION['kullanici_mail'])) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>GirGir Production</title>
+  <title>GırGır Admin Panel</title>
 
   <!-- Bootstrap -->
   <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -88,7 +89,7 @@ if (!isset($_SESSION['kullanici_mail'])) {
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>GirGir Activity</span></a>
+            <a href="#" class="site_title"> <span>GırGır Activity</span></a>
           </div>
 
           <div class="clearfix"></div>
@@ -96,11 +97,14 @@ if (!isset($_SESSION['kullanici_mail'])) {
           <!-- menu profile quick info -->
           <div class="profile clearfix">
             <div class="profile_pic">
-              <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+              <img src="images/logo.png" alt="..." class="img-circle profile_img">
             </div>
             <div class="profile_info">
               <span>Hoşgeldin</span>
-              <h2><?php echo $kullanicicek['kullanici_adsoyad'] ?></h2>
+              <h2>Patron</h2>
+              <!-- 
+              <?php echo $kullanicicek['kullanici_ad'] ?>
+              -->
             </div>
           </div>
           <!-- /menu profile quick info -->
@@ -110,7 +114,7 @@ if (!isset($_SESSION['kullanici_mail'])) {
           <!-- sidebar menu -->
           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
-              <h3>General</h3>
+              <h3>Ana Menü</h3>
               <ul class="nav side-menu">
 
                 <li><a href="index.php"><i class="fa fa-home"></i> Anasayfa </a></li>
@@ -119,7 +123,6 @@ if (!isset($_SESSION['kullanici_mail'])) {
                   <ul class="nav child_menu">
                     <li><a href="genel-ayar.php">Genel Ayarlar</a></li>
                     <li><a href="iletisim-ayarlar.php">İletişim Ayarlar</a></li>
-                    <li><a href="api-ayarlar.php">Api Ayarlar</a></li>
                     <li><a href="sosyal-ayar.php">Sosyal Ayarlar</a></li>
                     <!--
 
@@ -146,19 +149,18 @@ if (!isset($_SESSION['kullanici_mail'])) {
                </ul>
              </li>
 
+             <li><a href="hakkimizda.php"><i class="fa fa-info"></i> Hakkımızda </a></li>
+
              <li><a href="kullanici.php"><i class="fa fa-user"></i> Kullanıcılar </a></li>
 
-           
+             
 
              <li><a href="menu.php"><i class="fa fa-list"></i> Menüler </a></li>
 
 
             
-
              
-             
-             
-
+            
 
 
              
@@ -171,22 +173,7 @@ if (!isset($_SESSION['kullanici_mail'])) {
        </div>
        <!-- /sidebar menu -->
 
-       <!-- /menu footer buttons -->
-       <div class="sidebar-footer hidden-small">
-        <a data-toggle="tooltip" data-placement="top" title="Settings">
-          <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-        </a>
-        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-          <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-        </a>
-        <a data-toggle="tooltip" data-placement="top" title="Lock">
-          <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-        </a>
-        <a data-toggle="tooltip" data-placement="top" title="Logout">
-          <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-        </a>
-      </div>
-      <!-- /menu footer buttons -->
+       
     </div>
   </div>
 
@@ -201,7 +188,7 @@ if (!isset($_SESSION['kullanici_mail'])) {
         <ul class="nav navbar-nav navbar-right">
           <li class="">
             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-              <img src="images/img.jpg" alt=""><?php echo $kullanicicek['kullanici_adsoyad'] ?>
+              <img src="images/logo.png" alt=""><?php echo $kullanicicek['kullanici_ad'] ?>
               <span class=" fa fa-angle-down"></span>
             </a>
             <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -212,7 +199,70 @@ if (!isset($_SESSION['kullanici_mail'])) {
             </ul>
           </li>
 
-          
+          <li role="presentation" class="dropdown">
+            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+              <i class="fa fa-envelope-o"></i>
+              <span class="badge bg-green">6</span>
+            </a>
+            <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+              <li>
+                <a>
+                  <span class="image"><img src="images/logo.png" alt="Profile Image" /></span>
+                  <span>
+                    <span>Ahmet Demirayak</span>
+                    <span class="time">3 dakika önce</span>
+                  </span>
+                  <span class="message">
+                    Merhabalar Admin Paneli için deneme mesajıdır bu...
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a>
+                <span class="image"><img src="images/logo.png" alt="Profile Image" /></span>
+                  <span>
+                  <span>Mehmet Yağcı</span>
+                    <span class="time">3 dakika önce</span>
+                  </span>
+                  <span class="message">
+                    Merhabalar Admin Paneli için deneme mesajıdır bu...
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a>
+                <span class="image"><img src="images/logo.png" alt="Profile Image" /></span>
+                  <span>
+                  <span>Neslihan Çelik</span>
+                    <span class="time">3 dakika önce</span>
+                  </span>
+                  <span class="message">
+                    Merhabalar Admin Paneli için deneme mesajıdır bu...
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a>
+                <span class="image"><img src="images/logo.png" alt="Profile Image" /></span>
+                  <span>
+                  <span>Ahmet Demirayak</span>
+                    <span class="time">3 dakika önce</span>
+                  </span>
+                  <span class="message">
+                    Merhabalar Admin Paneli için deneme mesajıdır bu...
+                  </span>
+                </a>
+              </li>
+              <li>
+                <div class="text-center">
+                  <a>
+                    <strong>Tüm Mesajları Görüntüle</strong>
+                    <i class="fa fa-angle-right"></i>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
     </div>

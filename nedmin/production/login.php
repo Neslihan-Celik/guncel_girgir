@@ -73,8 +73,8 @@
               <br />
 
               <div>
-                <h1><i class="fa fa-paw"></i> GırGır Activity</h1>
-                <p>©2020 GırGır Production v1.0</p>
+                <h1><i></i> GırGır Activity</h1>
+                <p>©2021 GırGır Production v2.1</p>
               </div>
             </div>
           </form>
