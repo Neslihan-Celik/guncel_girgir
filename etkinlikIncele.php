@@ -63,7 +63,7 @@ if (isset($_SESSION['userkullanici_mail'])) {
 
                                                             <?php echo "Katılımcı  sayısı : ";
                                                             $id = $etkinlikler['etkinlik_id'];
-                                                            $bilgi = $db->prepare("SELECT  count(*) as toplam FROM etkinlik_katilan  where etkinlik_id=$id");
+                                                            $bilgi = $db->prepare("SELECT  count(DISTINCT kullanici_id) as toplam FROM etkinlik_katilan  where etkinlik_id=$id");
                                                             $bilgi->execute();
                                                             $kisiSayisi = $bilgi->fetch(PDO::FETCH_ASSOC);
                                                             echo '<h7>' . $kisiSayisi['toplam']  . '</h7><br>';
@@ -73,10 +73,23 @@ if (isset($_SESSION['userkullanici_mail'])) {
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <?php
+
+                                            $tut1 = $etkinlikler['kullanici_id'];
+
+                                            $yayinlayan = $db->prepare("SELECT * FROM kullanici WHERE kullanici_id=:kullanici_id");
+                                            $yayinlayan->execute([
+                                                'kullanici_id' => $tut1
+                                            ]);
+                                            $row1 = $yayinlayan->fetch(PDO::FETCH_ASSOC); ?>
                                             <div class="item-profile-list">
                                                 <div class="profile-title">
-                                                    <div class="img-wrapper"><img src="img\profile\2.jpg" alt="profile" class="img-responsive img-circle"></div>
+                                                    <div class="img-wrapper"><img src="<?php echo $row1['kullanici_foto'] ?>" width="35px" alt="profile" class="img-responsive img-circle"></div>
                                                     <span>
+
+
+
 
                                                         <?php
                                                         $id = $etkinlikler['kullanici_id'];
@@ -91,10 +104,15 @@ if (isset($_SESSION['userkullanici_mail'])) {
                                                         <p><?php echo "Etkinlik açıklaması : " . $etkinlikler['etkinlik_aciklama'] ?></p>
 
                                                         <p>Adres : <?php echo $etkinlikler['etkinlik_adres'] ?></p>
+
+
+
+
                                                 </div>
                                                 </span>
 
                                             </div>
+
 
                                             <br><br>
                                             <div>
@@ -105,7 +123,26 @@ if (isset($_SESSION['userkullanici_mail'])) {
                                                 </form>
                                                 <a href="index.php"> <button name="geri" class="btn btn-primary btn-lg btn-block"> İptal</button></a><br>
                                             </div>
-                                            <div class="uyari"></div>
+
+
+                                            <div class="uyari">
+                                                <?php
+                                            //burası etkinlik katılımıc çekme kısmı
+                                                $id = $etkinlikler['kullanici_id'];
+                                                $bilgi = $db->prepare("SELECT DISTINCT k.kullanici_id, k.kullanici_ad ,k.kullanici_soyad,k.kullanici_mail,k.kullanici_foto 
+                                                            from etkinlik_katilan as ek
+                                                            JOIN
+                                                            kullanici  as k
+                                                            on k.kullanici_id=ek.kullanici_id where etkinlik_id=$veri ");
+                                                $bilgi->execute();
+                                                echo '<h7><b>Katılımcı Bilgileri</b></h7><br> ';
+                                                while ($kisi = $bilgi->fetch(PDO::FETCH_ASSOC)) {
+
+                                                    echo '<h7> ' . $kisi['kullanici_ad'] . ' ' . $kisi['kullanici_soyad'] . '---  ' . $kisi['kullanici_mail'] . '</h7><br>';
+                                                }
+                                                ?>
+                                            </div>
+
 
                                         </div>
                                     </div>
@@ -149,3 +186,8 @@ if (isset($_SESSION['userkullanici_mail'])) {
         })
     }
 </script>
+<!-- SELECT DISTINCT k.kullanici_id, k.kullanici_ad ,k.kullanici_soyad,k.kullanici_mail,k.kullanici_foto from etkinlik_katilan as ek
+JOIN
+kullanici  as k
+on k.kullanici_id=ek.kullanici_id 
+    -->

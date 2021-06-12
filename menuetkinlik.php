@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once 'header.php';
 
 //islemkontrol();
@@ -30,12 +30,13 @@ $say = $say2['toplam'];
     </div>
 </div>
 <!-- Inner Page Banner Area End Here -->
+
 <!-- Settings Page Start Here -->
 <div class="settings-page-area bg-secondary section-space-bottom">
     <div class="container">
 
         <div class="row settings-wrapper">
-            <?php require_once 'hesap-sidebar.php'; ?>
+          
 
             <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
 
@@ -56,6 +57,12 @@ $say = $say2['toplam'];
                     <div class="settings-details tab-content">
                         <div class="tab-pane fade active in" id="Personal">
                             <h2 class="title-section">Etkinliklerim</h2>
+
+
+
+
+
+                            
                             <div class="personal-info inner-page-padding">
                                 <?php
                                 if ($say > 0) {
@@ -64,11 +71,11 @@ $say = $say2['toplam'];
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">Başlık</th>
-                                            <th scope="col">Tarih</th>
+                                            <th scope="col">Etkinlik Adı</th>
+                                            <th scope="col">Etkinlik Tarihi</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody> 
                                         <?php
 
                                         $say3 = 0;
@@ -83,7 +90,14 @@ $say = $say2['toplam'];
                                                 <td><?php echo $etkinlikcek['etkinlik_tarih'] ?></td>
                                                 <td><input type="hidden" name="etkinlik_id" value="<?php echo $etkinlikcek['etkinlik_id'] ?>">
 
-                                                    <button class="btn btn-danger btn-xs" name="etkinlik_sil">Kaldır</button>
+                                                    <button class="btn btn-danger btn-md" name="etkinlik_sil">Kaldır</button>
+                                                  
+                                                    
+                                                    <button class="btn btn-primary btn-md" type="submit" name="gonder" id="gonder " > incele</button>
+                                                </form>
+
+
+
                                                 </td>
                                             </tr>
                                         <?php } ?>
@@ -122,3 +136,22 @@ $say = $say2['toplam'];
 <!-- Settings Page End Here -->
 <!-- Footer Area Start Here -->
 <?php require_once 'footer.php'; ?>
+<script>
+        function incele() {
+            var etkinlik = $("input[name=etkinlik_id]").val();
+           var etkinlik_id= Number(etkinlik);
+            $.ajax({
+                type: "POST",
+                url: "etkinlikIncele.php",
+                data: {
+                    post_etkinlik_ik: etkinlik_id,
+
+                },
+                success: function(sonuc) {
+                    var newHTML = "<div style='color: green;'> *Üyeliğiniz kaydedildi </div>";
+                    document.getElementById("uyari").innerHTML = newHTML;
+
+                }
+            })
+        }
+    </script>

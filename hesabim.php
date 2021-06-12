@@ -8,12 +8,7 @@ if (!isset($_SESSION['userkullanici_mail'])) {
 }
 ?>
 <!-- Header Area End Here -->
-<!-- Main Banner 1 Area Start Here -->
-<div class="inner-banner-area">
-    <div class="container">
 
-    </div>
-</div>
 <!-- Main Banner 1 Area End Here -->
 <!-- Inner Page Banner Area Start Here -->
 <div class="pagination-area bg-secondary">
